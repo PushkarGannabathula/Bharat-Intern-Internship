@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Temperature Conversion Page</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-image: url('temp.jpg');
+            background-position: center;
+            background-size: cover; 
+            background-repeat: no-repeat; 
+            background-attachment: fixed;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            border: 3px solid black;
+            border-radius: 10px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid black;
+        }
+        select {
+            width: 300px;
+            height: 40px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        input{
+            width: 300px;
+            height: 40px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }button:hover {
+            background-color: #00ccff;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color: rgb(255, 255, 255);">Temperature Conversion</h1>
+    <span style='font-size:100px; text-align: right; color: rgb(255, 255, 255);'>&#127777;</span>
+    <div class="container">
+        <table>
+            <tr>
+                <th><input type="number" id="inputValue"></th>
+                <th>
+                    <select id="fromUnit">
+                        <option value="celsius">Celsius</option>
+                        <option value="fahrenheit">Fahrenheit</option>
+                        <option value="kelvin">Kelvin</option>
+                    </select>
+                </th>
+                <th><p style="color: aliceblue; font-size: 20px;">to</p></th>
+                <th><input type="number" id="outputValue" style="color: aliceblue;" disabled></th>
+                <th>
+                    <select id="toUnit">
+                        <option value="celsius">Celsius</option>
+                        <option value="fahrenheit">Fahrenheit</option>
+                        <option value="kelvin">Kelvin</option>
+                    </select>
+                </th>
+            </tr>
+        </table>
+    </div>
+    <button id="convertBtn">Convert</button>
+    <script>
+        const convertBtn = document.getElementById('convertBtn');
+        const inputValue = document.getElementById('inputValue');
+        const fromUnit = document.getElementById('fromUnit');
+        const outputValue = document.getElementById('outputValue');
+        const toUnit = document.getElementById('toUnit');
+
+        convertBtn.addEventListener('click', () => {
+            const value = parseFloat(inputValue.value);
+            const from = fromUnit.value;
+            const to = toUnit.value;
+
+            if (from === to) {
+                outputValue.value = value.toFixed(2);
+                return;
+            }
+
+            if (from === 'celsius' && to === 'fahrenheit') {
+                outputValue.value = ((value * 9/5) + 32).toFixed(2);
+            } else if (from === 'fahrenheit' && to === 'celsius') {
+                outputValue.value = ((value - 32) * 5/9).toFixed(2);
+            } else if (from === 'celsius' && to === 'kelvin') {
+                outputValue.value = (value + 273.15).toFixed(2);
+            } else if (from === 'kelvin' && to === 'celsius') {
+                outputValue.value = (value - 273.15).toFixed(2);
+            } else if (from === 'fahrenheit' && to === 'kelvin') {
+                outputValue.value = ((value + 459.67) * 5/9).toFixed(2);
+            } else if (from === 'kelvin' && to === 'fahrenheit') {
+                outputValue.value = ((value * 9/5) - 459.67).toFixed(2);
+            }
+        });
+    </script>
+</body>
+</html>
+
